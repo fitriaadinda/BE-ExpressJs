@@ -46,9 +46,9 @@ app.get('/job-history/:id',(req,res)=> {
 });
 
 app.post(`/job-history`, (req, res) => {
-    const { job_id, job_title, min_salary, max_salary } = req.body;
-    pool.query(`INSERT INTO jobs values($1, $2, $3, $4)`,
-      [job_id, job_title, min_salary, max_salary],
+    const { employee_id, start_date, end_date, job_id, department_id } = req.body;
+    pool.query(`INSERT INTO jobs values($1, $2, $3, $4, $5)`,
+      [employee_id, start_date, end_date, job_id, department_id],
       (error, result) => {
         if (error) {
           throw error;
@@ -60,9 +60,9 @@ app.post(`/job-history`, (req, res) => {
 
 app.put('/job-history/:id',(req,res)=> {
     const {id} = req.params
-    const { job_id, job_title, min_salary, max_salary } = req.body;
-    pool.query('update jobs set job_title=$1, min_salary=$2, max_salary=$3 where job_id=$4',
-    [job_title, min_salary, max_salary, id],
+    const { start_date, end_date, job_id, department_id } = req.body;
+    pool.query('update jobs set start_date=$1, end_date=$2, job_id=$3, department_id=$4 where employee_id=$5',
+    [start_date, end_date, job_id, department_id, id],
     (error,result) => {
         if (error) {
             throw error
